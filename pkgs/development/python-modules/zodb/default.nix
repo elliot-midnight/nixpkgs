@@ -29,9 +29,6 @@ buildPythonPackage rec {
       rm -vf src/ZODB/tests/testdocumentation.py
     '';
 
-    # ZConfig 3.5.0 is not compatible with Python 3.8
-    disabled = pythonAtLeast "3.8";
-
     propagatedBuildInputs = [
       transaction
       six
