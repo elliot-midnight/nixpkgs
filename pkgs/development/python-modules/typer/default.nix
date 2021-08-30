@@ -15,14 +15,19 @@
 
 buildPythonPackage rec {
   pname = "typer";
-  version = "0.3.2";
+  version = "0.4.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "00v3h63dq8yxahp9vg3yb9r27l2niwv8gv0dbds9dzrc298dfmal";
+    sha256 = "1pgm0zsylbmz1r96q4n3rfi0h3pn4jss2yfs83z0yxa90nmsxhv3";
   };
 
   propagatedBuildInputs = [ click ];
+
+  preCheck = ''
+    export HOME=$TMPDIR
+    touch .bashrc
+  '';
 
   checkInputs = [
     pytestCheckHook
@@ -35,18 +40,11 @@ buildPythonPackage rec {
     black
     isort
   ];
-  pytestFlagsArray = [
-    "--ignore=tests/test_completion/test_completion.py"
-    "--ignore=tests/test_completion/test_completion_install.py"
-  ];
 
   meta = with lib; {
     homepage = "https://typer.tiangolo.com/";
     description = "Typer, build great CLIs. Easy to code. Based on Python type hints.";
     license = licenses.mit;
-    # is incompatible with click8
-    # https://github.com/tiangolo/typer/issues/280
-    broken = true;
-    maintainers = [ maintainers.winpat ];
+    maintainers = with maintainers; [ winpat ];
   };
 }
