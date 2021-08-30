@@ -23,17 +23,8 @@ buildPythonPackage rec {
     owner = "executablebooks";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-GA7P2I8N+i2ISsVgx58zyhrfKMcZ7pL4X9T/trbsr1Y=";
+    sha256 = "0h7rn3rcqfwmnqs97qczwkw9w5g4df8bgn6sw7k149svfqgrkf56";
   };
-
-  patches = [
-    (fetchpatch {
-      # :arrow_up: UPGRADE: attrs -> v21 (#165)
-      # https://github.com/executablebooks/markdown-it-py/pull/165
-      url = "https://github.com/executablebooks/markdown-it-py/commit/78381ffe1a651741594dc93e693b761422512fa2.patch";
-      sha256 = "0h7rn3rcqfwmnqs97qczwkw9w5g4df8bgn6sw7k149svfqgrkf56";
-    })
-  ];
 
   propagatedBuildInputs = [ attrs linkify-it-py ]
     ++ lib.optional (pythonOlder "3.8") typing-extensions;
